@@ -1,0 +1,17 @@
+.pagination-container .pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Ajusta según tus necesidades */
+}
+
+.pagination-container .pagination .button {
+  margin: 0 10px; /* Ajusta según tus necesidades */
+}
+
+.pagination-container .pagination .button:first-child {
+  margin-left: 0px;
+}
+
+.pagination-container .pagination .button:last-child {
+  margin-right: 170px;
+}

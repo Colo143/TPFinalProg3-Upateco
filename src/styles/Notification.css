@@ -1,0 +1,17 @@
+/* src/styles/Notification.css */
+.notification {
+  border-radius: 8px;
+  padding: 1em;
+  margin: 1em 0;
+  transition: opacity 0.3s ease;
+}
+
+.notification.is-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.notification.is-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}

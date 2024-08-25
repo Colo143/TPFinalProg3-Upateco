@@ -1,0 +1,315 @@
+// src/api.js
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'https://sandbox.academiadevelopers.com/',
+});
+
+// Interceptor para agregar el token JWT a las solicitudes
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token'); // se guarda el token en localStorage
+  if (token) {
+    config.headers.Authorization = `Token ${token}`;
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
+export default api;
+
+// src/components/Notification.jsx
+import React from 'react';
+import '../styles/Notification.css'; // Importa los estilos
+
+const Notification = ({ message, type }) => {
+  if (!message) return null;
+
+  return (
+    <div className={`notification is-${type}`}>
+      {message}
+    </div>
+  );
+};
+
+export default Notification;
+
+// src/context/AuthContext.jsx
+import React, { createContext, useState, useContext } from 'react';
+
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [token, setToken] = useState(null);
+  const [userId, setUserId] = useState(null); // Agrega el estado para el ID del usuario
+
+  const login = (token, userId) => { // Modifica la función de login
+    setToken(token);
+    setUserId(userId); // Guarda el ID del usuario
+    setIsAuthenticated(true);
+  };
+
+  const logout = () => {
+    setToken(null);
+    setUserId(null); // Limpia el ID del usuario al cerrar sesión
+    setIsAuthenticated(false);
+  };
+  console.log('UserId context:', userId);
+  return (
+    <AuthContext.Provider value={{ isAuthenticated, token, userId, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
+
+// src/services/authService.js
+import axios from 'axios';
+
+const API_URL = 'https://sandbox.academiadevelopers.com/api-auth/';
+
+export const login = async (credentials) => {
+  const response = await axios.post(`${API_URL}`, credentials);
+  return response.data; // Devuelve el token JWT
+};
+
+// src/pages/Login.jsx
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import api from '../api';
+import { useAuth } from '../context/AuthContext';
+
+const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
+const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    // Primero, intenta iniciar sesión
+    const response = await api.post('/api-auth/', { username, password });
+    const token = response.data.token;
+
+    // Guarda el token en localStorage
+    localStorage.setItem('token', token);
+
+    // Realiza una solicitud para obtener los datos del perfil
+    const profileResponse = await api.get('/users/profiles/profile_data/', {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+
+    // Obtén el user__id del perfil
+    const userId = profileResponse.data.user__id;
+
+    // Llama a la función de login del contexto con el token y el userId
+    login(token, userId);
+
+    // Redirige al perfil
+    navigate('/profile');
+  } catch (error) {
+    console.error('Error de autenticación', error);
+  }
+};
+
+  return (
+    <form onSubmit={handleLogin} className="box">
+      <h1 className="title">Iniciar Sesión</h1>
+      <div className="field">
+        <label className="label">Usuario</label>
+        <div className="control">
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="input"
+            placeholder="Usuario"
+            required
+          />
+        </div>
+      </div>
+      <div className="field">
+        <label className="label">Contraseña</label>
+        <div className="control">
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="input"
+            placeholder="Contraseña"
+            required
+          />
+        </div>
+      </div>
+      <div className="control">
+        <button type="submit" className="button is-primary">Iniciar Sesión</button>
+      </div>
+    </form>
+  );
+};
+
+export default Login;
+
+// src/App.jsx
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Profile from './pages/Profile';
+//import ChannelDetail from './pages/ChannelDetail';
+import ChannelList from './pages/ChannelList';
+import ServerList from './pages/ServerList'; // Importa la página de lista de servidores
+import ServerDetail from './pages/ServerDetail'; // Asegúrate de importar ServerDetail
+import PrivateRoute from './components/PrivateRoute';
+import NotFound from './pages/NotFound';
+import CreateServer from './pages/CreateServer'; // Importa el nuevo componente
+import CreateChannel from './pages/CreateChannel'; // Importa el nuevo componente
+import MessageList from './pages/MessageList'; // Importa la página de lista de mensajes
+import MemberList from './pages/MemberList'; // Importa la página de lista de miembros
+import CreateMessage from './pages/CreateMessage';
+import EditMessage from './pages/EditMessage'; // Importa el nuevo componente
+import EditServer from './pages/EditServer';
+
+const App = () => {
+  return (
+    <AuthProvider>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/channels"
+              element={
+                <PrivateRoute>
+                  <ChannelList />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/channels/create" // Nueva ruta para crear un canal
+              element={
+                <PrivateRoute>
+                  <CreateChannel />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/servers"
+              element={
+                <PrivateRoute>
+                  <ServerList />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/servers/edit/:id"
+              element={
+                <PrivateRoute>
+                  <EditServer />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/servers/create" // Nueva ruta para crear un servidor
+              element={
+                <PrivateRoute>
+                  <CreateServer />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/servers/:id"
+              element={
+                <PrivateRoute>
+                  <ServerDetail />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/messages"
+              element={
+                <PrivateRoute>
+                  <MessageList />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/messages/create"
+              element={
+                <PrivateRoute>
+                  <CreateMessage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/messages/edit/:id"
+              element={
+                <PrivateRoute>
+                  <EditMessage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/members"
+              element={
+                <PrivateRoute>
+                  <MemberList />
+                </PrivateRoute>
+              }
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Layout>
+      </Router>
+    </AuthProvider>
+  );
+};
+
+export default App;
+
+// src/index.jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+//import './styles/styles.css'; // Si tienes estilos globales
+// src/index.jsx o src/App.jsx
+//import 'bulma/css/bulma.css';
+
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Aplicación de Mensajería</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="/src/index.jsx"></script>
+</body>
+</html>
