@@ -115,7 +115,6 @@ const ServerList = ({ onSelectServer }) => {
               )}
               {isMember(server.id) ? (
                 <>
-                  <button onClick={() => handleLeaveServer(server.id)} className="button is-danger">Abandonar</button>
                   <button onClick={() => onSelectServer(server.id)} className="button is-info">Ver Canales</button>
                 </>
               ) : (
