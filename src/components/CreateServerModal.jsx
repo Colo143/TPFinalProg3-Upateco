@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import api from '../api';
 import Notification from './Notification';
+import { FaRocket, FaTimes } from 'react-icons/fa';
+
 
 const CreateServerModal = ({ isOpen, onClose, onServerCreated }) => {
   const [name, setName] = useState('');
@@ -11,13 +13,14 @@ const CreateServerModal = ({ isOpen, onClose, onServerCreated }) => {
     e.preventDefault();
     
     const serverData = { name, description };
+
     console.log('Datos del servidor a enviar:', serverData);
 
     try {
       const response = await api.post('/teamhub/servers/', serverData);
       setNotification({ message: 'Servidor creado exitosamente.', type: 'success' });
       onServerCreated(response.data);
-      onClose();
+      onClose(); // Cierra el modal
     } catch (error) {
       setNotification({ message: 'Error al crear el servidor.', type: 'danger' });
       console.error('Error al crear el servidor:', error);
@@ -61,8 +64,12 @@ const CreateServerModal = ({ isOpen, onClose, onServerCreated }) => {
             </div>
             <div className="field">
               <div className="control">
-                <button type="submit" className="button is-primary">Crear</button>
-                <button type="button" className="button" onClick={onClose}>Cancelar</button>
+                <button type="submit" className="button is-primary">
+                  <FaRocket size={14} style={{ color: '#fff', marginRight: '8px' }} />Agregar Servidor
+                </button>
+                <button type="button" className="button" onClick={onClose}>
+                  <FaTimes size={14} style={{ color: '#fff', marginRight: '8px' }} />Cancelar
+                </button>
               </div>
             </div>
           </form>
