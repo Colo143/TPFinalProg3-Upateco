@@ -4,6 +4,8 @@ import useChannel from '../hooks/useChannel';
 import Notification from '../components/Notification';
 import CreateChannelModal from '../components/CreateChannelModal';
 import EditChannelModal from '../components/EditChannelModal';
+import { FaRocket, FaPen, FaTimes, FaList } from 'react-icons/fa';
+
 import api from '../api';
 
 const ChannelList = ({ serverId, onSelectChannel }) => {
@@ -49,7 +51,9 @@ const ChannelList = ({ serverId, onSelectChannel }) => {
         type={notification.type} 
         onClose={() => setNotification({ message: '', type: '' })}
       />
-      <button onClick={() => setIsCreateModalOpen(true)} className="button is-primary">Crear Canal</button>
+      <button onClick={() => setIsCreateModalOpen(true)} className="button is-primary">
+        <FaRocket size={14} style={{ color: '#fff', marginRight: '8px' }} />Crear Canal
+      </button>
       <ul>
         {channels && channels.length > 0 ? (
           channels.map((channel) => (
@@ -58,9 +62,15 @@ const ChannelList = ({ serverId, onSelectChannel }) => {
               <p>{channel.description}</p>
               <p>Creado por: {channel.creator}</p>
               <p>Servidor: {channel.server}</p>
-              <button onClick={() => { setSelectedChannel(channel); setIsEditModalOpen(true); }} className="button is-info">Editar Canal</button>
-              <button onClick={() => handleDeleteChannel(channel.id)} className="button is-danger">Eliminar Canal</button>
-              <button onClick={() => onSelectChannel(channel.id)} className="button is-info">Ver Mensajes</button>
+              <button onClick={() => { setSelectedChannel(channel); setIsEditModalOpen(true); }} className="button is-info">
+                <FaPen size={14} style={{ color: '#fff', marginRight: '8px' }} />Editar Canal
+              </button>
+              <button onClick={() => handleDeleteChannel(channel.id)} className="button is-danger">
+                <FaTimes size={14} style={{ color: '#fff', marginRight: '8px' }} />Eliminar Canal
+              </button>
+              <button onClick={() => onSelectChannel(channel.id)} className="button is-info">
+                <FaList size={14} style={{ color: '#fff', marginRight: '8px' }} />Ver Mensajes
+              </button>
             </li>
           ))
         ) : (
