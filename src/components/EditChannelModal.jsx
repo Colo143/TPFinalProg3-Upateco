@@ -18,15 +18,13 @@ const EditChannelModal = ({ isOpen, onClose, channel, onChannelUpdated }) => {
     e.preventDefault();
     
     const channelData = { name, description };
-
-    // Imprimir los datos en la consola
     console.log('Datos del canal a actualizar:', channelData);
 
     try {
       const response = await api.put(`/teamhub/channels/${channel.id}/`, channelData);
       setNotification({ message: 'Canal actualizado exitosamente.', type: 'success' });
-      onChannelUpdated(response.data); // Llama a la función para actualizar la lista de canales
-      onClose(); // Cierra el modal
+      onChannelUpdated(response.data);
+      onClose();
     } catch (error) {
       setNotification({ message: 'Error al actualizar el canal.', type: 'danger' });
       console.error('Error al actualizar el canal:', error);

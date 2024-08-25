@@ -11,7 +11,6 @@ const MessageList = ({ channelId }) => {
   const [notification, setNotification] = useState({ message: '', type: '' });
   const { userId } = useAuth();
   
-  // Estado para los modales
   const [isCreateMessageOpen, setCreateMessageOpen] = useState(false);
   const [isEditMessageOpen, setEditMessageOpen] = useState(false);
   const [messageToEdit, setMessageToEdit] = useState(null);

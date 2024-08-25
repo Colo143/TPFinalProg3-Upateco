@@ -1,7 +1,6 @@
 import React from 'react';
 import useMembers from '../hooks/useMembers';
 import Notification from '../components/Notification';
-import { Link } from 'react-router-dom'; // Importa Link para la navegación
 
 const MemberList = () => {
   const { data: members, error } = useMembers();
@@ -18,7 +17,6 @@ const MemberList = () => {
         onClose={() => setNotification({ message: '', type: '' })} 
       />
       {error && <Notification message={error} type="danger" onClose={() => setNotification({ message: '', type: '' })} />}
-      {/* <Link to="/members/create" className="button is-primary">Crear Miembro</Link>  Botón para crear un miembro */}
       <ul>
         {Array.isArray(members) && members.length > 0 ? (
           members.map((member) => (

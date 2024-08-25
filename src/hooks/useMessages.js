@@ -1,4 +1,3 @@
-// src/hooks/useMessages.js
 import { useState, useEffect } from 'react';
 import api from '../api';
 
@@ -11,9 +10,9 @@ const useMessages = (channelId) => {
     setLoading(true);
     try {
       const response = await api.get('/teamhub/messages/', {
-        params: channelId ? { channel: channelId } : {}, // Filtrar por ID de canal si se proporciona
+        params: channelId ? { channel: channelId } : {},
       });
-      setData(response.data.results); // Asumiendo que la respuesta tiene la lista de mensajes
+      setData(response.data.results);
       setError(null);
     } catch (err) {
       setError('Error al obtener la lista de mensajes');
@@ -24,14 +23,13 @@ const useMessages = (channelId) => {
 
   useEffect(() => {
     fetchMessages();
-  }, [channelId]); // Dependencia de channelId
+  }, [channelId]);
 
-  // Exponer la función refetch
   const refetchMessages = () => {
     fetchMessages();
   };
 
-  return { data, error, loading, refetchMessages }; // Devuelve refetchMessages
+  return { data, error, loading, refetchMessages };
 };
 
 export default useMessages;

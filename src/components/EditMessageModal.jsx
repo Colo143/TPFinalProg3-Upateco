@@ -1,4 +1,3 @@
-// src/components/EditMessageModal.jsx
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import { useAuth } from '../context/AuthContext';
@@ -25,7 +24,7 @@ const EditMessageModal = ({ isOpen, onClose, message, onMessageEdited }) => {
         },
       });
       onMessageEdited();
-      onClose(); // Cierra el modal después de editar el mensaje
+      onClose();
     } catch (err) {
       setError('Error al editar el mensaje. Inténtalo de nuevo.');
       console.error('Error al editar el mensaje', err);

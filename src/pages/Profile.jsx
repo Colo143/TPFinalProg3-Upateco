@@ -41,7 +41,7 @@ const Profile = () => {
     if (notification.message) {
       const timer = setTimeout(() => {
         setNotification({ message: '', type: '' });
-      }, 5000); // La notificación desaparecerá después de 3 segundos
+      }, 5000);
 
       return () => clearTimeout(timer);
     }

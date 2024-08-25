@@ -12,22 +12,20 @@ const CreateChannelModal = ({ isOpen, onClose, onChannelCreated, serverId }) => 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Crear un objeto con los datos que se enviarán
     const channelData = { 
       name, 
       description,
-      server: serverId, // Asegúrate de incluir el ID del servidor
-      creator: userId // Incluye el ID del creador
+      server: serverId,
+      creator: userId
     };
 
-    // Imprimir los datos en la consola
     console.log('Datos del canal a enviar:', channelData);
 
     try {
       const response = await api.post('/teamhub/channels/', channelData);
       setNotification({ message: 'Canal creado exitosamente.', type: 'success' });
-      onChannelCreated(response.data); // Llama a la función para actualizar la lista de canales
-      onClose(); // Cierra el modal
+      onChannelCreated(response.data);
+      onClose();
     } catch (error) {
       setNotification({ message: 'Error al crear el canal.', type: 'danger' });
       console.error('Error al crear el canal:', error);

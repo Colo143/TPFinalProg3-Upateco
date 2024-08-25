@@ -11,15 +11,13 @@ const CreateServerModal = ({ isOpen, onClose, onServerCreated }) => {
     e.preventDefault();
     
     const serverData = { name, description };
-
-    // Imprimir los datos en la consola
     console.log('Datos del servidor a enviar:', serverData);
 
     try {
       const response = await api.post('/teamhub/servers/', serverData);
       setNotification({ message: 'Servidor creado exitosamente.', type: 'success' });
-      onServerCreated(response.data); // Llama a la función para actualizar la lista de servidores
-      onClose(); // Cierra el modal
+      onServerCreated(response.data);
+      onClose();
     } catch (error) {
       setNotification({ message: 'Error al crear el servidor.', type: 'danger' });
       console.error('Error al crear el servidor:', error);

@@ -1,4 +1,3 @@
-// src/hooks/useAuthStatus.js
 import { useEffect, useState } from 'react';
 
 const useAuthStatus = () => {
@@ -17,4 +16,3 @@ const useAuthStatus = () => {
 };
 
 export default useAuthStatus;
-

@@ -1,4 +1,3 @@
-// src/hooks/useServers.js
 import { useState, useEffect } from 'react';
 import api from '../api';
 
@@ -11,13 +10,13 @@ const useServers = () => {
   const [currentPage, setCurrentPage] = useState(1); 
 
   const fetchServers = async (page = 1) => {
-    setLoading(true); // Inicia la carga
+    setLoading(true);
     try {
       const response = await api.get(`/teamhub/servers/?page=${page}`);
       setData(response.data.results);
-      setNextPage(response.data.next); // Guarda el enlace a la siguiente página
-      setPrevPage(response.data.previous); // Guarda el enlace a la página anterior
-      setCurrentPage(page); // Guarda la página actual
+      setNextPage(response.data.next);
+      setPrevPage(response.data.previous);
+      setCurrentPage(page);
       setError(null); 
     } catch (err) {
       setError('Error al obtener la lista de servidores');
@@ -38,4 +37,3 @@ const useServers = () => {
 };
 
 export default useServers;
-

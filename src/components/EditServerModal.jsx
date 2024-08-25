@@ -19,14 +19,13 @@ const EditServerModal = ({ isOpen, onClose, server, onServerUpdated }) => {
     
     const serverData = { name, description };
 
-    // Imprimir los datos en la consola
     console.log('Datos del servidor a actualizar:', serverData);
 
     try {
       const response = await api.put(`/teamhub/servers/${server.id}/`, serverData);
       setNotification({ message: 'Servidor actualizado exitosamente.', type: 'success' });
-      onServerUpdated(response.data); // Llama a la función para actualizar la lista de servidores
-      onClose(); // Cierra el modal
+      onServerUpdated(response.data);
+      onClose();
     } catch (error) {
       setNotification({ message: 'Error al actualizar el servidor.', type: 'danger' });
       console.error('Error al actualizar el servidor:', error);

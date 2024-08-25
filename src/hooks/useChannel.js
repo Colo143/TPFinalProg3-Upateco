@@ -1,4 +1,3 @@
-// src/hooks/useChannel.js
 import { useState, useEffect } from 'react';
 import api from '../api';
 
@@ -11,7 +10,7 @@ const useChannel = (serverId) => {
     setLoading(true);
     try {
       const response = await api.get('/teamhub/channels/', {
-        params: serverId ? { server: serverId } : {}, // Filtrar por ID de servidor si se proporciona
+        params: serverId ? { server: serverId } : {},
       });
       setChannels(response.data.results);
     } catch (err) {
@@ -30,7 +29,7 @@ const useChannel = (serverId) => {
     fetchChannels();
   };
 
-  return { channels, error, loading, refetchChannels }; // Devuelve refetchChannels
+  return { channels, error, loading, refetchChannels };
 };
 
 export default useChannel;

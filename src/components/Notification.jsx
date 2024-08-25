@@ -1,15 +1,14 @@
-// src/components/Notification.jsx
 import React, {useEffect} from 'react';
-import '../styles/Notification.css'; // Importa los estilos
+import '../styles/Notification.css';
 
 const Notification = ({ message, type, onClose }) => {
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
-        onClose(); // Llama a la función para cerrar la notificación después de 3 segundos
-      }, 5000); // 5000 milisegundos = 5 segundos
+        onClose();
+      }, 5000);
 
-      return () => clearTimeout(timer); // Limpia el temporizador si el componente se desmonta o si se actualiza la notificación
+      return () => clearTimeout(timer);
     }
   }, [message, onClose]);
   

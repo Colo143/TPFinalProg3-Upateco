@@ -26,7 +26,7 @@ const ServerList = ({ onSelectServer }) => {
       });
       setNotification({ message: 'Te has unido al servidor exitosamente.', type: 'success' });
       refetchMembers(); 
-      refetchServers(); 
+      refetchServers();
     } catch (err) {
       console.error(err);
       setNotification({ message: 'Error al unirte al servidor.', type: 'danger' });
@@ -64,7 +64,7 @@ const ServerList = ({ onSelectServer }) => {
   };
 
   const handleServerUpdated = (updatedServer) => {
-    refetchServers(); // Vuelve a obtener la lista de servidores
+    refetchServers();
     setNotification({ message: 'Servidor actualizado exitosamente.', type: 'success' });
   };
 

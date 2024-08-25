@@ -1,4 +1,3 @@
-// src/components/CreateMessageModal.jsx
 import React, { useState } from 'react';
 import api from '../api';
 import { useAuth } from '../context/AuthContext';
@@ -22,7 +21,7 @@ const CreateMessageModal = ({ isOpen, onClose, channelId, onMessageCreated }) =>
         },
       });
       onMessageCreated();
-      onClose(); // Cierra el modal después de crear el mensaje
+      onClose();
     } catch (err) {
       setError('Error al crear el mensaje. Inténtalo de nuevo.');
       console.error('Error al crear el mensaje', err);
