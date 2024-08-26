@@ -61,7 +61,7 @@ const EditMessageModal = ({ isOpen, onClose, message, onMessageEdited }) => {
                 Guardar Cambios
               </button>
               <button type="button" className="button" onClick={onClose}>
-                <FaTimes size={14} style={{ color: '#fff', marginRight: '8px' }} />
+                <FaTimes size={14} style={{ color: '#373b3f', marginRight: '8px' }} />
                 Cancelar
               </button>
             </div>
