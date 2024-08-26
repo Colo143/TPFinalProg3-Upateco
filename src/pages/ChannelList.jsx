@@ -58,19 +58,10 @@ const ChannelList = ({ serverId, onSelectChannel }) => {
         {channels && channels.length > 0 ? (
           channels.map((channel) => (
             <li key={channel.id}>
-<<<<<<< HEAD
               <h2><strong>Nombre: </strong>{channel.name}</h2>
               <p><strong>Descripción: </strong>{channel.description}</p>
-              <p><strong>Creado por: </strong>{channel.creator} </p>
+              <p><strong>Creado por: </strong> {channel.creator}</p>
               <p><strong>Servidor: </strong> {channel.server}</p>
-              <button onClick={() => { setSelectedChannel(channel); setIsEditModalOpen(true); }} className="button is-info">Editar Canal</button>
-              <button onClick={() => handleDeleteChannel(channel.id)} className="button is-danger">Eliminar Canal</button>
-              <button onClick={() => onSelectChannel(channel.id)} className="button is-info">Ver Mensajes</button>
-=======
-              <h2>{channel.name}</h2>
-              <p>{channel.description}</p>
-              <p>Creado por: {channel.creator}</p>
-              <p>Servidor: {channel.server}</p>
               <button onClick={() => { setSelectedChannel(channel); setIsEditModalOpen(true); }} className="button is-info">
                 <FaPen size={14} style={{ color: '#fff', marginRight: '8px' }} />Editar Canal
               </button>
@@ -80,7 +71,6 @@ const ChannelList = ({ serverId, onSelectChannel }) => {
               <button onClick={() => onSelectChannel(channel.id)} className="button is-info">
                 <FaList size={14} style={{ color: '#fff', marginRight: '8px' }} />Ver Mensajes
               </button>
->>>>>>> b46659586e0ab734e3f2d608eb10d8839d83ba6f
             </li>
           ))
         ) : (
