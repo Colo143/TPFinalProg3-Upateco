@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import { useAuth } from '../context/AuthContext';
+import { FaPen, FaTimes } from 'react-icons/fa';
+
 
 const EditMessageModal = ({ isOpen, onClose, message, onMessageEdited }) => {
   const [content, setContent] = useState('');
@@ -54,8 +56,14 @@ const EditMessageModal = ({ isOpen, onClose, message, onMessageEdited }) => {
               </div>
             </div>
             <div className="control">
-              <button type="submit" className="button is-primary">Guardar Cambios</button>
-              <button type="button" className="button" onClick={onClose}>Cancelar</button>
+              <button type="submit" className="button is-primary">
+                <FaPen size={14} style={{ color: '#fff', marginRight: '8px' }} />
+                Guardar Cambios
+              </button>
+              <button type="button" className="button" onClick={onClose}>
+                <FaTimes size={14} style={{ color: '#373b3f', marginRight: '8px' }} />
+                Cancelar
+              </button>
             </div>
           </form>
         </div>

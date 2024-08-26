@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import Notification from './Notification';
+import { FaPen, FaTimes } from 'react-icons/fa';
 
 const EditChannelModal = ({ isOpen, onClose, channel, onChannelUpdated }) => {
   const [name, setName] = useState('');
@@ -18,6 +19,7 @@ const EditChannelModal = ({ isOpen, onClose, channel, onChannelUpdated }) => {
     e.preventDefault();
     
     const channelData = { name, description };
+
     console.log('Datos del canal a actualizar:', channelData);
 
     try {
@@ -68,8 +70,12 @@ const EditChannelModal = ({ isOpen, onClose, channel, onChannelUpdated }) => {
             </div>
             <div className="field">
               <div className="control">
-                <button type="submit" className="button is-primary">Actualizar</button>
-                <button type="button" className="button" onClick={onClose}>Cancelar</button>
+                <button type="submit" className="button is-primary">
+                  <FaPen size={14} style={{ color: '#fff', marginRight: '8px' }} />Actualizar Canal
+                </button>
+                <button type="button" className="button" onClick={onClose}>
+                  <FaTimes size={14} style={{ color: '#373b3f', marginRight: '8px' }} />Cancelar
+                </button>
               </div>
             </div>
           </form>

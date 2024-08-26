@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import api from '../api';
 import Notification from './Notification';
 import { useAuth } from '../context/AuthContext';
+import { FaRocket, FaTimes } from 'react-icons/fa';
+
 
 const CreateChannelModal = ({ isOpen, onClose, onChannelCreated, serverId }) => {
   const { userId } = useAuth();
@@ -11,7 +13,6 @@ const CreateChannelModal = ({ isOpen, onClose, onChannelCreated, serverId }) => 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const channelData = { 
       name, 
       description,
@@ -69,8 +70,12 @@ const CreateChannelModal = ({ isOpen, onClose, onChannelCreated, serverId }) => 
             </div>
             <div className="field">
               <div className="control">
-                <button type="submit" className="button is-primary">Crear</button>
-                <button type="button" className="button" onClick={onClose}>Cancelar</button>
+                <button type="submit" className="button is-primary">
+                  <FaRocket size={14} style={{ color: '#fff', marginRight: '8px' }} />Agregar Canal
+                </button>
+                <button type="button" className="button" onClick={onClose}>
+                  <FaTimes size={14} style={{ color: '#fff', marginRight: '8px' }} />Cancelar
+                </button>
               </div>
             </div>
           </form>

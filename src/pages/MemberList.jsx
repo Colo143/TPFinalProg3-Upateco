@@ -1,6 +1,7 @@
 import React from 'react';
 import useMembers from '../hooks/useMembers';
 import Notification from '../components/Notification';
+import { Link } from 'react-router-dom'; // Importa Link para la navegación
 
 const MemberList = () => {
   const { data: members, error } = useMembers();

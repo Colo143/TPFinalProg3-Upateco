@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
 import { useAuth } from '../context/AuthContext';
+import { FaLock } from 'react-icons/fa';
+
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -60,7 +62,9 @@ const handleLogin = async (e) => {
         </div>
       </div>
       <div className="control">
-        <button type="submit" className="button is-primary">Iniciar Sesión</button>
+        <button type="submit" className="button is-primary">
+          <FaLock size={16} style={{ color: '#fff', marginRight: '8px' }} />Iniciar Sesión
+        </button>
       </div>
     </form>
   );

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import api from '../api';
 import { useAuth } from '../context/AuthContext';
+import { FaRocket, FaTimes } from 'react-icons/fa';
+
 
 const CreateMessageModal = ({ isOpen, onClose, channelId, onMessageCreated }) => {
   const [content, setContent] = useState('');
@@ -51,8 +53,12 @@ const CreateMessageModal = ({ isOpen, onClose, channelId, onMessageCreated }) =>
               </div>
             </div>
             <div className="control">
-              <button type="submit" className="button is-primary">Enviar Mensaje</button>
-              <button type="button" className="button" onClick={onClose}>Cancelar</button>
+              <button type="submit" className="button is-primary">
+                <FaRocket size={14} style={{ color: '#fff', marginRight: '8px' }} />Enviar Mensaje
+              </button>
+              <button type="button" className="button" onClick={onClose}>
+                <FaTimes size={14} style={{ color: '#fff', marginRight: '8px' }} />Cancelar
+              </button>
             </div>
           </form>
         </div>

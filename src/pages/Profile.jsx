@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api';
 import Notification from '../components/Notification';
+import { FaPen, FaTimes } from 'react-icons/fa';
+
 
 const Profile = () => {
   const [profileData, setProfileData] = useState(null);
@@ -41,7 +43,7 @@ const Profile = () => {
     if (notification.message) {
       const timer = setTimeout(() => {
         setNotification({ message: '', type: '' });
-      }, 5000);
+      }, 5000); // La notificación desaparecerá después de 3 segundos
 
       return () => clearTimeout(timer);
     }
@@ -87,7 +89,7 @@ const Profile = () => {
       </div>
 
       <button className="button is-primary" onClick={() => setIsEditing(true)}>
-        Editar Perfil
+        <FaPen size={14} style={{ color: '#fff', marginRight: '8px' }} />Editar Perfil
       </button>
 
       {isEditing && (
@@ -145,7 +147,9 @@ const Profile = () => {
             </div>
           </div>
           <div className="control">
-            <button type="submit" className="button is-primary">Actualizar Perfil</button>
+            <button type="submit" className="button is-primary">
+              <FaPen size={14} style={{ color: '#fff', marginRight: '8px' }} />Actualizar Perfil
+            </button>
           </div>
         </form>
       )}
