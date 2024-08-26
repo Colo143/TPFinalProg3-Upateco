@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import useMembers from '../hooks/useMembers';
 import CreateServerModal from '../components/CreateServerModal';
 import EditServerModal from '../components/EditServerModal';
+import { FaRocket, FaPen, FaTimes, FaList, FaUserPlus, FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import '../styles/Pagination.css';
 
 const ServerList = ({ onSelectServer }) => {
@@ -26,7 +27,7 @@ const ServerList = ({ onSelectServer }) => {
       });
       setNotification({ message: 'Te has unido al servidor exitosamente.', type: 'success' });
       refetchMembers(); 
-      refetchServers();
+      refetchServers(); 
     } catch (err) {
       console.error(err);
       setNotification({ message: 'Error al unirte al servidor.', type: 'danger' });
@@ -64,7 +65,7 @@ const ServerList = ({ onSelectServer }) => {
   };
 
   const handleServerUpdated = (updatedServer) => {
-    refetchServers();
+    refetchServers(); // Vuelve a obtener la lista de servidores
     setNotification({ message: 'Servidor actualizado exitosamente.', type: 'success' });
   };
 
@@ -99,7 +100,9 @@ const ServerList = ({ onSelectServer }) => {
   return (
     <div>
       <Notification message={notification.message} type={notification.type} onClose={() => setNotification({ message: '', type: '' })} />
-      <button className="button is-primary" onClick={() => setIsCreateModalOpen(true)}>Crear Servidor</button>
+      <button className="button is-primary" onClick={() => setIsCreateModalOpen(true)}>
+        <FaRocket size={14} style={{ color: '#fff', marginRight: '8px' }} />Crear Servidor
+      </button>
       <ul>
         {Array.isArray(servers) && servers.length > 0 ? (
           servers.map((server) => (
@@ -109,16 +112,24 @@ const ServerList = ({ onSelectServer }) => {
               <p>Propietario: {server.owner}</p>
               {isOwner(server.id) && (
                 <>
-                  <button className="button is-info" onClick={() => openEditModal(server)}>Editar</button>
-                  <button onClick={() => handleDeleteServer(server.id)} className="button is-danger">Eliminar</button>
+                  <button className="button is-info" onClick={() => openEditModal(server)}>
+                    <FaPen size={14} style={{ color: '#fff', marginRight: '8px' }} />Editar
+                  </button>
+                  <button onClick={() => handleDeleteServer(server.id)} className="button is-danger">
+                    <FaTimes size={14} style={{ color: '#fff', marginRight: '8px' }} />Eliminar
+                  </button>
                 </>
               )}
               {isMember(server.id) ? (
                 <>
-                  <button onClick={() => onSelectServer(server.id)} className="button is-info">Ver Canales</button>
+                  <button onClick={() => onSelectServer(server.id)} className="button is-info">
+                    <FaList size={14} style={{ color: '#fff', marginRight: '8px' }} />Ver Canales
+                  </button>
                 </>
               ) : (
-                <button onClick={() => handleJoinServer(server.id)} className="button is-link">Unirme</button>
+                <button onClick={() => handleJoinServer(server.id)} className="button is-link">
+                  <FaUserPlus size={14} style={{ color: '#fff', marginRight: '8px' }} />Unirme
+                </button>
               )}
             </li>
           ))
@@ -129,8 +140,12 @@ const ServerList = ({ onSelectServer }) => {
 
       <div className="pagination-container">
         <div className="pagination">
-          <button className="button" onClick={handlePrevPage} disabled={!prevPage}> Anterior </button>
-          <button className="button" onClick={handleNextPage} disabled={!nextPage}> Siguiente </button>
+          <button className="button" onClick={handlePrevPage} disabled={!prevPage}>
+            <FaChevronLeft rev size={14} style={{ color: '#373b3f', marginRight: '8px' }} />Anterior
+          </button>
+          <button className="button" onClick={handleNextPage} disabled={!nextPage}>
+            <FaChevronRight size={14} style={{ color: '#373b3f', marginRight: '8px' }} />Siguiente
+          </button>
         </div>
       </div>
 
