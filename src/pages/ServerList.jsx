@@ -104,9 +104,9 @@ const ServerList = ({ onSelectServer }) => {
         {Array.isArray(servers) && servers.length > 0 ? (
           servers.map((server) => (
             <li key={server.id}>
-              <h2>{server.name}</h2>
-              <p>{server.description}</p>
-              <p>Propietario: {server.owner}</p>
+              <h2><strong>Nombre: </strong>{server.name}</h2>
+              <p><strong>Descripción: </strong>{server.description}</p>
+              <p><strong>Propietario: </strong>{server.owner}</p>
               {isOwner(server.id) && (
                 <>
                   <button className="button is-info" onClick={() => openEditModal(server)}>Editar</button>

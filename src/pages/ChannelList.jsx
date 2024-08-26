@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import useChannel from '../hooks/useChannel';
 import Notification from '../components/Notification';
@@ -54,10 +54,10 @@ const ChannelList = ({ serverId, onSelectChannel }) => {
         {channels && channels.length > 0 ? (
           channels.map((channel) => (
             <li key={channel.id}>
-              <h2>{channel.name}</h2>
-              <p>{channel.description}</p>
-              <p>Creado por: {channel.creator}</p>
-              <p>Servidor: {channel.server}</p>
+              <h2><strong>Nombre: </strong>{channel.name}</h2>
+              <p><strong>Descripción: </strong>{channel.description}</p>
+              <p><strong>Creado por: </strong>{channel.creator} </p>
+              <p><strong>Servidor: </strong> {channel.server}</p>
               <button onClick={() => { setSelectedChannel(channel); setIsEditModalOpen(true); }} className="button is-info">Editar Canal</button>
               <button onClick={() => handleDeleteChannel(channel.id)} className="button is-danger">Eliminar Canal</button>
               <button onClick={() => onSelectChannel(channel.id)} className="button is-info">Ver Mensajes</button>

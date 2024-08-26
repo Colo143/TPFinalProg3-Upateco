@@ -76,12 +76,13 @@ const Profile = () => {
 
   return (
     <div>
-      <h1 className="title">Hola! {profileData.first_name}</h1>
+      <h1 className="title">Hola {profileData.first_name}!</h1>
       <Notification message={notification.message} type={notification.type} />
       
       <div>
         <p><strong>ID:</strong> {profileData.user__id}</p>
         <p><strong>Nombre de usuario:</strong> {profileData.username}</p>
+        <p><strong>Apellido:</strong> {profileData.last_name}</p>
         <p><strong>Email:</strong> {profileData.email}</p>
       </div>
 
