@@ -5,6 +5,7 @@ Aplicación React que incluye la configuración de una API, rutas, componentes y
 
 - **src/**: Código fuente de la aplicación
   - **components/**:Componentes reutilizables
+    
     `CreateChannelModal:` Modal para crear un nuevo canal, incluye un formulario para ingresar los detalles del canal.
     
     `CreateMessageModal:` Modal para crear un nuevo mensaje dentro de un canal, permite escribir y enviar mensajes.
