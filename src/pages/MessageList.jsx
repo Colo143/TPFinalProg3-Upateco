@@ -5,6 +5,8 @@ import CreateMessageModal from '../components/CreateMessageModal';
 import EditMessageModal from '../components/EditMessageModal';
 import api from '../api';
 import { useAuth } from '../context/AuthContext';
+import { FaEnvelope,FaPen, FaTimes } from 'react-icons/fa';
+
 
 const MessageList = ({ channelId }) => {
   const { data: messages, error, loading, refetchMessages } = useMessages(channelId);
@@ -48,7 +50,9 @@ const MessageList = ({ channelId }) => {
         onClose={() => setNotification({ message: '', type: '' })}
       />
       {error && <Notification message={error} type="danger" onClose={() => setNotification({ message: '', type: '' })} />}
-      <button onClick={openCreateMessageModal} className="button is-primary">Crear Mensaje</button>
+      <button onClick={openCreateMessageModal} className="button is-primary">
+        <FaEnvelope size={14} style={{ color: '#fff', marginRight: '8px' }} />Crear Mensaje
+      </button>
       {loading ? (
         <p>Cargando mensajes...</p>
       ) : (
@@ -63,14 +67,14 @@ const MessageList = ({ channelId }) => {
                   className="button is-danger" 
                   disabled={message.author !== userId}
                 >
-                  Eliminar
+                   <FaTimes size={14} style={{ color: '#fff', marginRight: '8px' }} />Eliminar
                 </button>
                 <button 
                   onClick={() => openEditMessageModal(message)} 
                   className="button is-info" 
                   disabled={message.author !== userId}
                 >
-                  Editar
+                  <FaPen size={14} style={{ color: '#fff', marginRight: '8px' }} />Editar
                 </button>
               </li>
             ))
